@@ -1,0 +1,165 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#0077BE',
+    marginBottom: 60,
+  },
+  input: {
+    width: '100%',
+    height: 55,
+    backgroundColor: '#E8E8E8',
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    fontSize: 16,
+  },
+  buttonRow: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 10,
+  },
+  loginButton: {
+    backgroundColor: '#0077BE',
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 8,
+  },
+  loginButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  forgotPassword: {
+    color: '#666',
+    fontSize: 14,
+  },
+  signupContainer: {
+    marginTop: 40,
+  },
+  signupText: {
+    color: '#666',
+    fontSize: 14,
+  },
+  welcomeContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 20,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#2C3E50',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  logoText: {
+    fontSize: 50,
+  },
+  logoName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2C3E50',
+  },
+  welcomeTitle: {
+    fontSize: 28,
+    color: '#0077BE',
+    textAlign: 'center',
+  },
+  welcomeBrand: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#0077BE',
+    textAlign: 'center',
+    marginTop: -10,
+  },
+  socialContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 30,
+    marginVertical: 20,
+  },
+  socialButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#0077BE',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  socialIcon: {
+    fontSize: 30,
+    color: '#fff',
+  },
+  actionButtons: {
+    marginBottom: 40,
+    gap: 15,
+  },
+  loginLink: {
+    color: '#666',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  personalInfoContainer: {
+    flexGrow: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+  },
+  personalInfoTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#0077BE',
+    marginBottom: 40,
+  },
+  row: {
+    flexDirection: 'row-reverse',
+    width: '100%',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  halfInput: {
+    width: '48%',
+  },
+  nextButton: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    backgroundColor: '#0077BE',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginTop: 20,
+    gap: 10,
+  },
+  nextButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  arrow: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+});
