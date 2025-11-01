@@ -1,50 +1,116 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import LandingPage from './screens/LandingPage'; // Import LandingPage
 import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
 import ContactScreen from './screens/ContactScreen';
 import SubscriptionScreen from './screens/SubscriptionScreen';
+import CommissionSystemScreen from './screens/CommissionSystemScreen';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('login');
+  const [currentPage, setCurrentPage] = useState('landing'); // Start with landing page
+  const [userType, setUserType] = useState(null); 
+
+  const renderScreen = () => {
+    switch (currentPage) {
+      case 'landing':
+        return <LandingPage onContinue={() => setCurrentPage('login')} />;
+      case 'login':
+        return <LoginScreen onLogin={() => setCurrentPage('welcome')} onSignUp={() => setCurrentPage('signup')} />;
+      case 'signup':
+        return <SignUpScreen onSignUpSuccess={() => setCurrentPage('welcome')} onBack={() => setCurrentPage('login')} userType={userType} setUserType={setUserType} />;
+      case 'welcome':
+        return <WelcomeScreen />;
+      case 'personalInfo':
+        return <CommissionSystemScreen onBack={() => setCurrentPage('welcome')} />;
+      case 'subscription':
+        return <SubscriptionScreen />;
+      case 'contact':
+        return <ContactScreen userType={userType} />;
+      default:
+        return <LandingPage onContinue={() => setCurrentPage('login')} />;
+    }
+  };
+
+  // Don't show the navbar on landing, login or signup screens
+  const showNavbar = currentPage !== 'landing' && currentPage !== 'login' && currentPage !== 'signup';
 
   return (
-    <>
+    <View style={styles.container}>
       <StatusBar style="dark" />
-      {currentPage === 'login' && (
-        <LoginScreen onLogin={() => setCurrentPage('welcome')} />
+      <View style={styles.content}>{renderScreen()}</View>
+
+      {showNavbar && (
+        <View style={styles.navbar}>
+          <TouchableOpacity onPress={() => setCurrentPage('welcome')} style={styles.navItem}>
+            <Text style={[styles.navText, currentPage === 'welcome' && styles.active]}>
+              🏠
+            </Text>
+            <Text style={[styles.navLabel, currentPage === 'welcome' && styles.activeText]}>
+              Home
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setCurrentPage('personalInfo')} style={styles.navItem}>
+            <Text style={[styles.navText, currentPage === 'personalInfo' && styles.active]}>
+              👤
+            </Text>
+            <Text style={[styles.navLabel, currentPage === 'personalInfo' && styles.activeText]}>
+              Info
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setCurrentPage('subscription')} style={styles.navItem}>
+            <Text style={[styles.navText, currentPage === 'subscription' && styles.active]}>
+              💳
+            </Text>
+            <Text style={[styles.navLabel, currentPage === 'subscription' && styles.activeText]}>
+              Plan
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setCurrentPage('contact')} style={styles.navItem}>
+            <Text style={[styles.navText, currentPage === 'contact' && styles.active]}>
+              📞
+            </Text>
+            <Text style={[styles.navLabel, currentPage === 'contact' && styles.activeText]}>
+              Contact
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setCurrentPage('landing')} style={styles.navItem}>
+            <Text style={styles.navText}>🚪</Text>
+            <Text style={styles.navLabel}>Logout</Text>
+          </TouchableOpacity>
+        </View>
       )}
-      {currentPage === 'welcome' && (
-        <WelcomeScreen 
-          onNavigateToPersonalInfo={() => setCurrentPage('personalInfo')}
-          onLogout={() => setCurrentPage('login')}
-          onGoToContact={() => setCurrentPage('contact')}
-        />
-      )}
-      {currentPage === 'personalInfo' && (
-        <SubscriptionScreen 
-          onBack={() => setCurrentPage('welcome')}
-          onPayment={() => {
-            // Handle payment logic here
-            console.log('Payment pressed');
-          }}
-        />
-      )}
-      {currentPage === 'subscription' && (
-        <SubscriptionScreen 
-          onBack={() => setCurrentPage('personalInfo')}
-          onPayment={() => {
-            // Handle payment logic here
-            console.log('Payment pressed');
-          }}
-        />
-      )}
-      {currentPage === 'contact' && (
-  <ContactScreen 
-    onBack={() => setCurrentPage('welcome')}
-  />
-)}
-    </>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  content: { flex: 1 },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderColor: '#ddd',
+    paddingVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  navItem: { alignItems: 'center', flex: 1 },
+  navText: { fontSize: 22 },
+  navLabel: { fontSize: 12, color: '#666' },
+  active: { color: '#007AFF' },
+  activeText: { color: '#007AFF', fontWeight: '600' },
+});

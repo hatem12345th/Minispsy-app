@@ -1,383 +1,340 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, ScrollView, StyleSheet, TextInput } from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 
-export default function ContactScreen({ onBack }) {
+export default function ContactScreen({ onBack, userType }) {
+  const [selectedUser, setSelectedUser] = useState(null);
   const [message, setMessage] = useState('');
+  const [chat, setChat] = useState({});
+  const [activeTab, setActiveTab] = useState('patients'); // 🔹 "patients" or "specialists"
 
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <Text style={styles.backArrow}>→</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>التواصل</Text>
-        <View style={styles.placeholder} />
-      </View>
+  // 👩‍⚕️ Specialists list
+  const specialists = [
+    { id: 1, name: 'د. أحمد محمد', specialty: 'أخصائي نفسي' },
+    { id: 2, name: 'د. ليلى عبد الله', specialty: 'ارشاد زواجي' },
+    { id: 3, name: 'د. كريم ناصر', specialty: 'التوجيه المهني' },
+  ];
 
-      {/* Profile Section */}
-      <View style={styles.profileSection}>
-        <View style={styles.profileImageContainer}>
-          <View style={styles.profileImage}>
-            <Text style={styles.profileEmoji}>👨‍⚕️</Text>
-          </View>
-          <View style={styles.onlineIndicator} />
+  // 🧑‍🤝‍🧑 Patients list
+  const patients = [
+    { id: 101, name: 'حاتم طالب', condition: 'اضطراب قلق' },
+    { id: 102, name: 'ليلى بن عيسى', condition: 'توتر مزمن' },
+    { id: 103, name: 'يوسف علي', condition: 'إجهاد نفسي' },
+  ];
+
+  // ✅ Choose list based on userType + active tab
+  let list = [];
+  if (userType === 'specialist') {
+    list = activeTab === 'patients' ? patients : specialists;
+  } else {
+    list = specialists;
+  }
+
+  // 📨 Send message
+  const handleSend = () => {
+    if (!message.trim()) return;
+    const msg = { id: Date.now(), sender: 'user', text: message.trim() };
+
+    setChat((prev) => ({
+      ...prev,
+      [selectedUser.id]: [...(prev[selectedUser.id] || []), msg],
+    }));
+    setMessage('');
+
+    // Simulated reply
+    setTimeout(() => {
+      const reply = {
+        id: Date.now() + 1,
+        sender: 'other',
+        text: 'تم استلام رسالتك، شكرًا لتواصلك 💬',
+      };
+      setChat((prev) => ({
+        ...prev,
+        [selectedUser.id]: [...(prev[selectedUser.id] || []), reply],
+      }));
+    }, 1000);
+  };
+
+  // 💬 Chat screen
+  if (selectedUser) {
+    const currentChat = chat[selectedUser.id] || [];
+    return (
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => setSelectedUser(null)}>
+            <Text style={styles.backArrow}>←</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>{selectedUser.name}</Text>
+          <View style={{ width: 20 }} />
         </View>
-        <Text style={styles.profileName}>د. أحمد محمد</Text>
-        <Text style={styles.profileSpecialty}>أخصائي نفسي</Text>
-      </View>
 
-      {/* Action Buttons */}
-      <View style={styles.actionButtonsContainer}>
-        <TouchableOpacity style={styles.actionButton}>
-          <View style={styles.actionButtonContent}>
-            <View style={styles.iconCircle}>
-              <Text style={styles.iconText}>📞</Text>
-            </View>
-            <Text style={styles.actionButtonLabel}>مكالمة صوتية</Text>
+        <ScrollView
+          style={styles.chatContainer}
+          contentContainerStyle={{ paddingBottom: 80 }}
+        >
+          <View style={styles.profileHeader}>
+            <Text style={styles.userEmoji}>💬</Text>
+            <Text style={styles.userName}>{selectedUser.name}</Text>
+            <Text style={styles.userStatus}>
+              {selectedUser.specialty
+                ? `الاختصاص: ${selectedUser.specialty}`
+                : `الحالة: ${selectedUser.condition}`}
+            </Text>
           </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton}>
-          <View style={styles.actionButtonContent}>
-            <View style={styles.iconCircle}>
-              <Text style={styles.iconText}>📹</Text>
+          {currentChat.map((msg) => (
+            <View
+              key={msg.id}
+              style={[
+                styles.chatBubble,
+                msg.sender === 'user'
+                  ? styles.userBubble
+                  : styles.otherBubble,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.chatText,
+                  msg.sender === 'user'
+                    ? styles.userText
+                    : styles.otherText,
+                ]}
+              >
+                {msg.text}
+              </Text>
             </View>
-            <Text style={styles.actionButtonLabel}>مكالمة فيديو</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+          ))}
+        </ScrollView>
 
-      {/* Message Section */}
-      <View style={styles.messageSection}>
-        <Text style={styles.messageSectionTitle}>إرسال رسالة</Text>
-        
-        <View style={styles.messageCard}>
+        <View style={styles.inputContainer}>
           <TextInput
-            style={styles.messageInput}
-            placeholder="اكتب رسالتك هنا..."
+            style={styles.input}
+            placeholder="اكتب رسالتك..."
             placeholderTextColor="#999"
             value={message}
             onChangeText={setMessage}
-            multiline
-            numberOfLines={6}
             textAlign="right"
+            multiline
           />
-          
-          <TouchableOpacity style={styles.sendButton}>
-            <Text style={styles.sendButtonText}>إرسال</Text>
+          <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
             <Text style={styles.sendIcon}>✈️</Text>
           </TouchableOpacity>
         </View>
+      </KeyboardAvoidingView>
+    );
+  }
+
+  // 📋 List view
+  return (
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View style={styles.header}>
+        {onBack && (
+          <TouchableOpacity onPress={onBack}>
+            <Text style={styles.backArrow}>←</Text>
+          </TouchableOpacity>
+        )}
+        <Text style={styles.headerTitle}>
+          {userType === 'specialist'
+            ? activeTab === 'patients'
+              ? 'قائمة المرضى'
+              : 'قائمة الأطباء'
+            : 'قائمة الأطباء'}
+        </Text>
+        <View style={{ width: 20 }} />
       </View>
 
-      {/* Contact Info */}
-      <View style={styles.contactInfoSection}>
-        <Text style={styles.contactInfoTitle}>معلومات الاتصال</Text>
-        
-        <View style={styles.contactInfoCard}>
-          <View style={styles.contactInfoRow}>
-            <Text style={styles.contactInfoValue}>+213 555 123 456</Text>
-            <View style={styles.contactInfoLabel}>
-              <Text style={styles.contactInfoIcon}>📱</Text>
-              <Text style={styles.contactInfoText}>الهاتف</Text>
-            </View>
-          </View>
-
-          <View style={styles.divider} />
-
-          <View style={styles.contactInfoRow}>
-            <Text style={styles.contactInfoValue}>doctor@minapsy.dz</Text>
-            <View style={styles.contactInfoLabel}>
-              <Text style={styles.contactInfoIcon}>✉️</Text>
-              <Text style={styles.contactInfoText}>البريد الإلكتروني</Text>
-            </View>
-          </View>
-
-          <View style={styles.divider} />
-
-          <View style={styles.contactInfoRow}>
-            <Text style={styles.contactInfoValue}>متاح الآن</Text>
-            <View style={styles.contactInfoLabel}>
-              <Text style={styles.contactInfoIcon}>🕐</Text>
-              <Text style={styles.contactInfoText}>الحالة</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      {/* Quick Actions */}
-      <View style={styles.quickActionsSection}>
-        <Text style={styles.quickActionsTitle}>إجراءات سريعة</Text>
-        
-        <View style={styles.quickActionsGrid}>
-          <TouchableOpacity style={styles.quickActionCard}>
-            <Text style={styles.quickActionIcon}>📅</Text>
-            <Text style={styles.quickActionText}>حجز موعد</Text>
+      {/* 🔹 Tabs visible only for specialists */}
+      {userType === 'specialist' && (
+        <View style={styles.tabs}>
+          <TouchableOpacity
+            style={[
+              styles.tabButton,
+              activeTab === 'patients' && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab('patients')}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === 'patients' && styles.activeTabText,
+              ]}
+            >
+              المرضى
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.quickActionCard}>
-            <Text style={styles.quickActionIcon}>📋</Text>
-            <Text style={styles.quickActionText}>السجل الطبي</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.quickActionCard}>
-            <Text style={styles.quickActionIcon}>⭐</Text>
-            <Text style={styles.quickActionText}>تقييم</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.quickActionCard}>
-            <Text style={styles.quickActionIcon}>📤</Text>
-            <Text style={styles.quickActionText}>مشاركة</Text>
+          <TouchableOpacity
+            style={[
+              styles.tabButton,
+              activeTab === 'specialists' && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab('specialists')}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === 'specialists' && styles.activeTabText,
+              ]}
+            >
+              الأطباء
+            </Text>
           </TouchableOpacity>
         </View>
-      </View>
-    </ScrollView>
+      )}
+
+      <ScrollView contentContainerStyle={{ padding: 20 }}>
+        {list.map((user) => (
+          <TouchableOpacity
+            key={user.id}
+            style={styles.card}
+            onPress={() => setSelectedUser(user)}
+          >
+            <View style={styles.avatar}>
+              <Text style={styles.avatarIcon}>
+                {user.specialty ? '👨‍⚕️' : '🧑‍🤝‍🧑'}
+              </Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.userName}>{user.name}</Text>
+              <Text style={styles.userInfo}>
+                {user.specialty || user.condition}
+              </Text>
+            </View>
+            <Text style={styles.chatButton}>💬</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F7FA',
-  },
-  contentContainer: {
-    paddingBottom: 40,
-  },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    backgroundColor: '#fff',
     paddingTop: 50,
-    paddingBottom: 20,
-    backgroundColor: '#fff',
-  },
-  backButton: {
-    padding: 8,
-  },
-  backArrow: {
-    fontSize: 24,
-    color: '#0077BE',
-    fontWeight: 'bold',
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2C3E50',
-  },
-  placeholder: {
-    width: 40,
-  },
-  profileSection: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    paddingVertical: 30,
+    paddingBottom: 15,
     paddingHorizontal: 20,
-  },
-  profileImageContainer: {
-    position: 'relative',
-    marginBottom: 15,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#E8F4FA',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: '#0077BE',
-  },
-  profileEmoji: {
-    fontSize: 50,
-  },
-  onlineIndicator: {
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#4CAF50',
-    borderWidth: 3,
-    borderColor: '#fff',
-  },
-  profileName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2C3E50',
-    marginBottom: 5,
-  },
-  profileSpecialty: {
-    fontSize: 16,
-    color: '#666',
-  },
-  actionButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 20,
-    paddingVertical: 25,
-    backgroundColor: '#fff',
-    gap: 15,
-  },
-  actionButton: {
-    flex: 1,
-  },
-  actionButtonContent: {
     alignItems: 'center',
+    justifyContent: 'space-between',
+    elevation: 2,
   },
-  iconCircle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: '#E8F4FA',
+  backArrow: { fontSize: 22, color: '#0077BE' },
+  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#2C3E50' },
+
+  // 🔹 Tabs
+  tabs: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#F0F0F0',
+    borderRadius: 10,
+    margin: 15,
+    padding: 5,
+  },
+  tabButton: {
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  activeTab: {
+    backgroundColor: '#0077BE',
+  },
+  tabText: {
+    color: '#555',
+    fontWeight: '600',
+  },
+  activeTabText: {
+    color: '#fff',
+  },
+
+  card: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    backgroundColor: '#F8F9FA',
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#E0F2FF',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginLeft: 15,
   },
-  iconText: {
-    fontSize: 32,
+  avatarIcon: { fontSize: 25 },
+  userName: { fontSize: 18, fontWeight: 'bold', color: '#2C3E50' },
+  userInfo: { color: '#777', fontSize: 14 },
+  chatButton: { fontSize: 20 },
+
+  chatContainer: { flex: 1, backgroundColor: '#F5F7FA', paddingHorizontal: 15 },
+  profileHeader: { alignItems: 'center', marginVertical: 15 },
+  userEmoji: { fontSize: 50 },
+  userStatus: { color: '#4CAF50', fontSize: 14, marginTop: 4 },
+  chatBubble: {
+    maxWidth: '80%',
+    borderRadius: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    marginVertical: 6,
   },
-  actionButtonLabel: {
-    fontSize: 14,
-    color: '#2C3E50',
-    fontWeight: '600',
-    textAlign: 'center',
+  userBubble: {
+    backgroundColor: '#0077BE',
+    alignSelf: 'flex-start',
+    borderTopLeftRadius: 0,
   },
-  messageSection: {
-    paddingHorizontal: 20,
-    paddingTop: 25,
-  },
-  messageSectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2C3E50',
-    textAlign: 'right',
-    marginBottom: 15,
-  },
-  messageCard: {
+  otherBubble: {
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    alignSelf: 'flex-end',
+    borderTopRightRadius: 0,
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
-  messageInput: {
-    height: 120,
-    backgroundColor: '#F5F7FA',
-    borderRadius: 8,
-    padding: 15,
+  chatText: { fontSize: 16 },
+  userText: { color: '#fff', textAlign: 'right' },
+  otherText: { color: '#2C3E50', textAlign: 'right' },
+  inputContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderColor: '#E8E8E8',
+  },
+  input: {
+    flex: 1,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
     fontSize: 16,
-    textAlignVertical: 'top',
-    marginBottom: 15,
+    color: '#2C3E50',
   },
   sendButton: {
-    flexDirection: 'row-reverse',
+    marginLeft: 10,
     backgroundColor: '#0077BE',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
+    borderRadius: 25,
+    padding: 10,
   },
-  sendButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  sendIcon: {
-    fontSize: 20,
-  },
-  contactInfoSection: {
-    paddingHorizontal: 20,
-    paddingTop: 25,
-  },
-  contactInfoTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2C3E50',
-    textAlign: 'right',
-    marginBottom: 15,
-  },
-  contactInfoCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  contactInfoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  contactInfoLabel: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  contactInfoIcon: {
-    fontSize: 20,
-  },
-  contactInfoText: {
-    fontSize: 16,
-    color: '#2C3E50',
-    fontWeight: '600',
-  },
-  contactInfoValue: {
-    fontSize: 16,
-    color: '#666',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: '#E8E8E8',
-    marginVertical: 5,
-  },
-  quickActionsSection: {
-    paddingHorizontal: 20,
-    paddingTop: 25,
-    paddingBottom: 20,
-  },
-  quickActionsTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2C3E50',
-    textAlign: 'right',
-    marginBottom: 15,
-  },
-  quickActionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 15,
-  },
-  quickActionCard: {
-    width: '47%',
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  quickActionIcon: {
-    fontSize: 32,
-    marginBottom: 10,
-  },
-  quickActionText: {
-    fontSize: 14,
-    color: '#2C3E50',
-    fontWeight: '600',
-    textAlign: 'center',
-  },
+  sendIcon: { fontSize: 20, color: '#fff' },
 });

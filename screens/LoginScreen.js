@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/styles';
 
-export default function LoginScreen({ onLogin }) {
+export default function LoginScreen({ onLogin, onSignUp }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -48,7 +48,7 @@ export default function LoginScreen({ onLogin }) {
       </View>
 
       <View style={styles.signupContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onSignUp}>
           <Text style={styles.signupText}>ليس لديك حساب؟ سجل الآن.</Text>
         </TouchableOpacity>
       </View>
