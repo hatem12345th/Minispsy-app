@@ -160,7 +160,7 @@ export default function ContactScreen({ onBack, userType }) {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => setSelectedUser(null)}>
+          <TouchableOpacity onPress={() => setSelectedUser(null)} activeOpacity={0.7}>
             <Text style={styles.backArrow}>←</Text>
           </TouchableOpacity>
           <View style={styles.headerInfo}>
@@ -244,7 +244,7 @@ export default function ContactScreen({ onBack, userType }) {
         </ScrollView>
 
         <View style={styles.inputContainer}>
-          <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
+          <TouchableOpacity style={styles.sendButton} onPress={handleSend} activeOpacity={0.7}>
             <Text style={styles.sendIcon}>✈️</Text>
           </TouchableOpacity>
           <TextInput
@@ -269,7 +269,7 @@ export default function ContactScreen({ onBack, userType }) {
       <View style={styles.container}>
         <View style={styles.header}>
           {onBack && (
-            <TouchableOpacity onPress={onBack}>
+            <TouchableOpacity onPress={onBack} activeOpacity={0.7}>
               <Text style={styles.backArrow}>←</Text>
             </TouchableOpacity>
           )}
@@ -362,7 +362,7 @@ export default function ContactScreen({ onBack, userType }) {
     <View style={styles.container}>
       <View style={styles.header}>
         {onBack && (
-          <TouchableOpacity onPress={onBack}>
+          <TouchableOpacity onPress={onBack} activeOpacity={0.7}>
             <Text style={styles.backArrow}>←</Text>
           </TouchableOpacity>
         )}
@@ -547,7 +547,7 @@ export default function ContactScreen({ onBack, userType }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#F5F7FA',
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -563,18 +563,20 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#E8ECF0',
   },
   backArrow: {
     fontSize: 26,
     color: '#0891B2',
     fontWeight: '700',
+    lineHeight: 30,
   },
   headerTitle: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#1F2937',
-    letterSpacing: 0.3,
+    color: '#111827',
+    letterSpacing: 0.2,
+    lineHeight: 28,
   },
   headerInfo: {
     flex: 1,
@@ -583,9 +585,10 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     fontSize: 13,
-    color: '#6B7280',
+    color: '#64748B',
     fontWeight: '600',
     marginTop: 2,
+    lineHeight: 18,
   },
   headerAvatar: {
     width: 44,
@@ -596,13 +599,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FFFFFF',
+    shadowColor: '#0891B2',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   headerAvatarText: {
     fontSize: 24,
+    lineHeight: 24,
   },
   statusBanner: {
     backgroundColor: '#FEF3C7',
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#FDE68A',
@@ -612,19 +621,20 @@ const styles = StyleSheet.create({
     color: '#92400E',
     fontWeight: '700',
     fontSize: 14,
+    lineHeight: 20,
   },
   tabs: {
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#F3F4F6',
-    borderRadius: 14,
+    borderRadius: 16,
     margin: 16,
     padding: 4,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 3,
   },
   tabButton: {
     flex: 1,
@@ -638,12 +648,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
-    elevation: 3,
+    elevation: 4,
   },
   tabText: {
-    color: '#6B7280',
+    color: '#64748B',
     fontWeight: '700',
     fontSize: 14,
+    lineHeight: 20,
   },
   activeTabText: {
     color: '#FFFFFF',
@@ -655,16 +666,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    borderRadius: 18,
+    borderRadius: 20,
     padding: 18,
-    marginBottom: 14,
-    borderWidth: 1.5,
-    borderColor: '#E5E7EB',
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
-    shadowRadius: 8,
+    shadowRadius: 10,
     elevation: 3,
+    overflow: 'hidden',
   },
   cardContent: {
     flexDirection: 'row-reverse',

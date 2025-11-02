@@ -59,7 +59,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={onClose}>
+          <TouchableOpacity onPress={onClose} activeOpacity={0.7}>
             <Text style={styles.backArrow}>✕</Text>
           </TouchableOpacity>
           <Text style={styles.headerTitle}>حجز موعد</Text>
@@ -79,6 +79,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
           <TouchableOpacity
             style={styles.inputContainer}
             onPress={() => setShowDatePicker(!showDatePicker)}
+            activeOpacity={0.7}
           >
             <Text style={styles.label}>{date || 'اختر التاريخ'}</Text>
             <Text style={styles.icon}>📅</Text>
@@ -93,6 +94,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
                     setDate(d);
                     setShowDatePicker(false);
                   }}
+                  activeOpacity={0.7}
                 >
                   <Text style={styles.dropdownText}>{d}</Text>
                 </TouchableOpacity>
@@ -104,6 +106,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
           <TouchableOpacity
             style={styles.inputContainer}
             onPress={() => setShowTimePicker(!showTimePicker)}
+            activeOpacity={0.7}
           >
             <Text style={styles.label}>{time || 'اختر الوقت'}</Text>
             <Text style={styles.icon}>🕐</Text>
@@ -118,6 +121,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
                     setTime(t);
                     setShowTimePicker(false);
                   }}
+                  activeOpacity={0.7}
                 >
                   <Text style={styles.dropdownText}>{t}</Text>
                 </TouchableOpacity>
@@ -129,6 +133,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
           <TouchableOpacity
             style={styles.inputContainer}
             onPress={() => setShowSessionType(!showSessionType)}
+            activeOpacity={0.7}
           >
             <Text style={styles.label}>
               {sessionType 
@@ -147,6 +152,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
                     setSessionType(type.id);
                     setShowSessionType(false);
                   }}
+                  activeOpacity={0.7}
                 >
                   <Text style={styles.dropdownText}>
                     {type.icon} {type.label}
@@ -164,7 +170,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
         </ScrollView>
 
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit} activeOpacity={0.7}>
             <Text style={styles.submitText}>تأكيد الحجز</Text>
           </TouchableOpacity>
         </View>
@@ -176,7 +182,7 @@ export default function AppointmentForm({ visible, onClose, onSubmit, selectedSp
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#F5F7FA',
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -192,17 +198,20 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#E8ECF0',
   },
   backArrow: {
-    fontSize: 24,
+    fontSize: 26,
     color: '#0891B2',
     fontWeight: '700',
+    lineHeight: 30,
   },
   headerTitle: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#1F2937',
+    color: '#111827',
+    letterSpacing: 0.2,
+    lineHeight: 28,
   },
   scrollView: {
     flex: 1,
@@ -211,30 +220,35 @@ const styles = StyleSheet.create({
   },
   specialistInfo: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+    borderRadius: 24,
     padding: 24,
     alignItems: 'center',
     marginBottom: 24,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
   },
   specialistIcon: {
     fontSize: 56,
     marginBottom: 12,
+    lineHeight: 56,
   },
   specialistName: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#1F2937',
+    color: '#111827',
     marginBottom: 4,
+    lineHeight: 28,
   },
   specialistSpecialty: {
     fontSize: 16,
-    color: '#6B7280',
+    color: '#64748B',
     fontWeight: '600',
+    lineHeight: 22,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -245,30 +259,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 18,
     marginBottom: 16,
-    borderWidth: 1.5,
-    borderColor: '#E5E7EB',
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
     elevation: 2,
   },
   label: {
     fontSize: 16,
-    color: '#1F2937',
+    color: '#111827',
     fontWeight: '600',
     flex: 1,
     textAlign: 'right',
+    lineHeight: 22,
   },
   icon: {
     fontSize: 24,
     marginLeft: 12,
+    lineHeight: 24,
   },
   chevron: {
     fontSize: 16,
     color: '#0891B2',
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginLeft: 12,
+    lineHeight: 20,
   },
   dropdown: {
     backgroundColor: '#FFFFFF',
@@ -276,12 +293,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: -12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: 10,
     elevation: 4,
-    borderWidth: 1.5,
-    borderColor: '#E5E7EB',
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
+    overflow: 'hidden',
   },
   dropdownItem: {
     paddingVertical: 16,
@@ -291,18 +309,24 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
-    color: '#1F2937',
+    color: '#111827',
     fontWeight: '500',
     textAlign: 'right',
+    lineHeight: 22,
   },
   infoBox: {
     backgroundColor: '#E0F2FE',
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 18,
+    padding: 18,
     marginTop: 8,
     marginBottom: 24,
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: '#BAE6FD',
+    shadowColor: '#0891B2',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   infoText: {
     fontSize: 14,
@@ -316,7 +340,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderTopWidth: 1.5,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: '#E8ECF0',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.08,
@@ -326,18 +350,20 @@ const styles = StyleSheet.create({
   submitButton: {
     backgroundColor: '#0891B2',
     borderRadius: 16,
-    paddingVertical: 16,
+    paddingVertical: 18,
     alignItems: 'center',
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 12,
     elevation: 6,
+    overflow: 'hidden',
   },
   submitText: {
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '800',
     letterSpacing: 0.3,
+    lineHeight: 24,
   },
 });

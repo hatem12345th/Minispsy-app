@@ -25,6 +25,7 @@ export default function WelcomeScreen({ onNavigateToPersonalInfo, onGoToContact,
         <TouchableOpacity 
           style={styles.socialButton}
           onPress={() => openSocialMedia('https://instagram.com')}
+          activeOpacity={0.7}
         >
           <Text style={styles.socialIcon}>📷</Text>
         </TouchableOpacity>
@@ -32,6 +33,7 @@ export default function WelcomeScreen({ onNavigateToPersonalInfo, onGoToContact,
         <TouchableOpacity 
           style={styles.socialButton}
           onPress={() => openSocialMedia('https://facebook.com')}
+          activeOpacity={0.7}
         >
           <Text style={styles.socialIcon}>f</Text>
         </TouchableOpacity>
@@ -39,6 +41,7 @@ export default function WelcomeScreen({ onNavigateToPersonalInfo, onGoToContact,
         <TouchableOpacity 
           style={styles.socialButton}
           onPress={() => openSocialMedia('https://linkedin.com')}
+          activeOpacity={0.7}
         >
           <Text style={styles.socialIcon}>in</Text>
         </TouchableOpacity>
@@ -46,22 +49,22 @@ export default function WelcomeScreen({ onNavigateToPersonalInfo, onGoToContact,
 
       {/* 🔘 Navigation Buttons */}
       <View style={styles.actionButtons}>
-        <TouchableOpacity onPress={onNavigateToPersonalInfo}>
+        <TouchableOpacity onPress={onNavigateToPersonalInfo} activeOpacity={0.7}>
           <Text style={styles.loginLink}>تغيير معلوماتي الشخصية 🧾</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={onGoToContact}>
+        <TouchableOpacity onPress={onGoToContact} activeOpacity={0.7}>
           <Text style={styles.loginLink}>الذهاب إلى المحادثة 💬</Text>
         </TouchableOpacity>
 
         {userType === 'specialist' && (
-          <TouchableOpacity onPress={() => alert('صفحة الإحصائيات قادمة قريبًا 📊')}>
+          <TouchableOpacity onPress={() => alert('صفحة الإحصائيات قادمة قريبًا 📊')} activeOpacity={0.7}>
             <Text style={styles.loginLink}>عرض الإحصائيات</Text>
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity onPress={onLogout}>
-          <Text style={[styles.loginLink, { color: '#E74C3C' }]}>
+        <TouchableOpacity onPress={onLogout} activeOpacity={0.7}>
+          <Text style={[styles.loginLink, { color: '#DC2626' }]}>
             تسجيل الخروج 🔒
           </Text>
         </TouchableOpacity>

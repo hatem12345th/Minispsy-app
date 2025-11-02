@@ -35,6 +35,7 @@ const LandingPage = ({ onContinue }) => {
         <TouchableOpacity 
           style={styles.socialButton}
           onPress={() => openSocialMedia('https://www.instagram.com/minapsy')}
+          activeOpacity={0.7}
         >
           <Text style={styles.socialIcon}>📷</Text>
         </TouchableOpacity>
@@ -42,6 +43,7 @@ const LandingPage = ({ onContinue }) => {
         <TouchableOpacity 
           style={styles.socialButton}
           onPress={() => openSocialMedia('https://www.facebook.com/minapsy')}
+          activeOpacity={0.7}
         >
           <Text style={styles.socialIcon}>📘</Text>
         </TouchableOpacity>
@@ -49,6 +51,7 @@ const LandingPage = ({ onContinue }) => {
         <TouchableOpacity 
           style={styles.socialButton}
           onPress={() => openSocialMedia('https://www.linkedin.com/company/minapsy')}
+          activeOpacity={0.7}
         >
           <Text style={styles.socialIcon}>💼</Text>
         </TouchableOpacity>
@@ -63,7 +66,7 @@ const LandingPage = ({ onContinue }) => {
 
       {/* Continue Button (Optional - auto-navigate after delay) */}
       {onContinue && (
-        <TouchableOpacity style={styles.continueButton} onPress={onContinue}>
+        <TouchableOpacity style={styles.continueButton} onPress={onContinue} activeOpacity={0.7}>
           <Text style={styles.continueButtonText}>ابدأ الآن</Text>
         </TouchableOpacity>
       )}
@@ -74,7 +77,7 @@ const LandingPage = ({ onContinue }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#F5F7FA',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 72,
@@ -87,11 +90,11 @@ const styles = StyleSheet.create({
   logo: {
     width: 160,
     height: 160,
-    borderRadius: 20,
+    borderRadius: 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.15,
-    shadowRadius: 16,
+    shadowRadius: 20,
     elevation: 12,
     borderWidth: 3,
     borderColor: '#FFFFFF',
@@ -102,20 +105,22 @@ const styles = StyleSheet.create({
   },
   welcomeTextArabic: {
     fontSize: 28,
-    color: '#0891B2',
+    color: '#0E7490',
     textAlign: 'center',
     marginBottom: 14,
     fontWeight: '700',
-    letterSpacing: 0.5,
+    letterSpacing: 0.4,
+    lineHeight: 36,
   },
   brandName: {
-    fontSize: 42,
+    fontSize: 40,
     fontWeight: '800',
-    color: '#0891B2',
+    color: '#0E7490',
     letterSpacing: 3.5,
     textShadowColor: 'rgba(8, 145, 178, 0.15)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 6,
+    lineHeight: 48,
   },
   socialContainer: {
     flexDirection: 'row',
@@ -134,13 +139,14 @@ const styles = StyleSheet.create({
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.15,
-    shadowRadius: 12,
+    shadowRadius: 14,
     elevation: 8,
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: '#E8ECF0',
   },
   socialIcon: {
     fontSize: 32,
+    lineHeight: 32,
   },
   messageContainer: {
     marginTop: 48,
@@ -148,7 +154,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 18,
-    color: '#6B7280',
+    color: '#64748B',
     textAlign: 'center',
     lineHeight: 28,
     fontWeight: '500',
@@ -157,20 +163,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#0891B2',
     paddingVertical: 20,
     paddingHorizontal: 80,
-    borderRadius: 30,
+    borderRadius: 24,
     marginTop: 28,
     shadowColor: '#0891B2',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
     shadowRadius: 16,
     elevation: 10,
-    borderWidth: 0,
+    overflow: 'hidden',
   },
   continueButtonText: {
     color: '#FFFFFF',
     fontSize: 20,
     fontWeight: '700',
-    letterSpacing: 0.8,
+    letterSpacing: 0.6,
+    lineHeight: 26,
   },
 });
 

@@ -73,6 +73,7 @@ export default function PersonalInfoScreen({ onNext }) {
       <TouchableOpacity 
         style={styles.nextButton}
         onPress={onNext}
+        activeOpacity={0.7}
       >
         <Text style={styles.nextButtonText}>التالي</Text>
         <Text style={styles.arrow}>←</Text>

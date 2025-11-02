@@ -21,7 +21,7 @@ export default function ChatScreen({ onBack }) {
     >
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={onBack}>
+        <TouchableOpacity onPress={onBack} activeOpacity={0.7}>
           <Text style={styles.backArrow}>←</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>المحادثة</Text>
@@ -62,7 +62,7 @@ export default function ChatScreen({ onBack }) {
           onChangeText={setInput}
           textAlign="right"
         />
-        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+        <TouchableOpacity style={styles.sendButton} onPress={sendMessage} activeOpacity={0.7}>
           <Text style={styles.sendIcon}>📤</Text>
         </TouchableOpacity>
       </View>
@@ -71,67 +71,125 @@ export default function ChatScreen({ onBack }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F5F7FA' },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#F5F7FA' 
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 50,
-    paddingBottom: 15,
+    paddingTop: 56,
+    paddingBottom: 18,
     paddingHorizontal: 20,
-    backgroundColor: '#fff',
-    elevation: 3,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E8ECF0',
   },
-  backArrow: { fontSize: 22, color: '#0077BE', fontWeight: 'bold' },
-  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#2C3E50' },
+  backArrow: { 
+    fontSize: 26, 
+    color: '#0891B2', 
+    fontWeight: '700' 
+  },
+  headerTitle: { 
+    fontSize: 22, 
+    fontWeight: '800', 
+    color: '#111827',
+    letterSpacing: 0.2,
+    lineHeight: 28,
+  },
 
   messagesContainer: {
-    padding: 15,
+    padding: 18,
     flexGrow: 1,
     justifyContent: 'flex-end',
   },
   messageBubble: {
-    maxWidth: '80%',
-    borderRadius: 15,
-    padding: 12,
-    marginVertical: 5,
+    maxWidth: '75%',
+    borderRadius: 20,
+    padding: 14,
+    marginVertical: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   userBubble: {
     alignSelf: 'flex-end',
-    backgroundColor: '#0077BE',
-    borderTopRightRadius: 0,
+    backgroundColor: '#0891B2',
+    borderTopRightRadius: 4,
   },
   doctorBubble: {
     alignSelf: 'flex-start',
-    backgroundColor: '#E8F4FA',
-    borderTopLeftRadius: 0,
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 4,
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
   },
-  messageText: { fontSize: 16, lineHeight: 22 },
-  userText: { color: '#fff' },
-  doctorText: { color: '#2C3E50' },
+  messageText: { 
+    fontSize: 16, 
+    lineHeight: 22,
+    fontWeight: '500',
+  },
+  userText: { 
+    color: '#FFFFFF',
+    textAlign: 'right',
+  },
+  doctorText: { 
+    color: '#111827',
+    textAlign: 'right',
+  },
 
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderTopWidth: 1,
-    borderColor: '#E8E8E8',
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderTopWidth: 1.5,
+    borderColor: '#E8ECF0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 8,
   },
   input: {
     flex: 1,
-    backgroundColor: '#F0F0F0',
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 24,
+    paddingVertical: 12,
+    paddingHorizontal: 18,
     fontSize: 16,
+    color: '#111827',
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
+    maxHeight: 100,
+    fontWeight: '500',
   },
   sendButton: {
-    marginLeft: 10,
-    backgroundColor: '#0077BE',
-    borderRadius: 20,
-    padding: 10,
+    marginLeft: 12,
+    backgroundColor: '#0891B2',
+    borderRadius: 28,
+    padding: 12,
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#0891B2',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
-  sendIcon: { fontSize: 18, color: '#fff' },
+  sendIcon: { 
+    fontSize: 20,
+    lineHeight: 20,
+  },
 });

@@ -138,6 +138,7 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
       <TouchableOpacity
         style={[styles.userTypeCard, userType === 'patient' && styles.userTypeCardSelected]}
         onPress={() => setUserType('patient')}
+        activeOpacity={0.7}
       >
         <Text style={styles.userTypeIcon}>🏥</Text>
         <Text style={styles.userTypeTitle}>مريض</Text>
@@ -149,6 +150,7 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
       <TouchableOpacity
         style={[styles.userTypeCard, userType === 'specialist' && styles.userTypeCardSelected]}
         onPress={() => setUserType('specialist')}
+        activeOpacity={0.7}
       >
         <Text style={styles.userTypeIcon}>👨‍⚕️</Text>
         <Text style={styles.userTypeTitle}>أخصائي</Text>
@@ -158,10 +160,10 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
       </TouchableOpacity>
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack} activeOpacity={0.7}>
           <Text style={styles.buttonText}>رجوع</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+        <TouchableOpacity style={styles.nextButton} onPress={handleNext} activeOpacity={0.7}>
           <Text style={styles.buttonText}>التالي</Text>
         </TouchableOpacity>
       </View>
@@ -230,10 +232,10 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
       />
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack} activeOpacity={0.7}>
           <Text style={styles.buttonText}>رجوع</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+        <TouchableOpacity style={styles.nextButton} onPress={handleNext} activeOpacity={0.7}>
           <Text style={styles.buttonText}>التالي</Text>
         </TouchableOpacity>
       </View>
@@ -276,12 +278,13 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
       />
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack} activeOpacity={0.7}>
           <Text style={styles.buttonText}>رجوع</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={userType === 'patient' ? styles.submitButton : styles.nextButton} 
           onPress={handleNext}
+          activeOpacity={0.7}
         >
           <Text style={styles.buttonText}>
             {userType === 'patient' ? 'التسجيل' : 'التالي'}
@@ -317,11 +320,11 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.uploadButton}>
+      <TouchableOpacity style={styles.uploadButton} activeOpacity={0.7}>
         <Text style={styles.uploadButtonText}>📄 تحميل السيرة الذاتية CV</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.uploadButton}>
+      <TouchableOpacity style={styles.uploadButton} activeOpacity={0.7}>
         <Text style={styles.uploadButtonText}>🎓 تحميل الشهادة العلمية</Text>
       </TouchableOpacity>
 
@@ -332,6 +335,7 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
         <TouchableOpacity
           style={[styles.radioButton, hasCurrentJob === false && styles.radioButtonSelected]}
           onPress={() => setHasCurrentJob(false)}
+          activeOpacity={0.7}
         >
           <Text style={[styles.radioButtonText, hasCurrentJob === false && styles.radioButtonTextSelected]}>
             لا
@@ -340,6 +344,7 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
         <TouchableOpacity
           style={[styles.radioButton, hasCurrentJob === true && styles.radioButtonSelected]}
           onPress={() => setHasCurrentJob(true)}
+          activeOpacity={0.7}
         >
           <Text style={[styles.radioButtonText, hasCurrentJob === true && styles.radioButtonTextSelected]}>
             نعم
@@ -349,7 +354,7 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
 
       {hasCurrentJob && (
         <>
-          <TouchableOpacity style={styles.uploadButton}>
+          <TouchableOpacity style={styles.uploadButton} activeOpacity={0.7}>
             <Text style={styles.uploadButtonText}>📋 تحميل إثبات مكان العمل</Text>
           </TouchableOpacity>
           <Text style={styles.noteText}>
@@ -359,10 +364,10 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
       )}
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack} activeOpacity={0.7}>
           <Text style={styles.buttonText}>رجوع</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit} activeOpacity={0.7}>
           <Text style={styles.buttonText}>التسجيل</Text>
         </TouchableOpacity>
       </View>
@@ -403,10 +408,10 @@ const SignUpScreen = ({ onSignUpSuccess, onBack,userType,setUserType }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#F5F7FA',
   },
   scrollContent: {
-    padding: 24,
+    padding: 20,
     paddingBottom: 40,
   },
   header: {
@@ -414,14 +419,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: '800',
-    color: '#0891B2',
+    color: '#0E7490',
     marginBottom: 24,
-    letterSpacing: 0.5,
-    textShadowColor: 'rgba(8, 145, 178, 0.1)',
+    letterSpacing: 0.4,
+    textShadowColor: 'rgba(8, 145, 178, 0.15)',
     textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    textShadowRadius: 6,
+    lineHeight: 38,
   },
   progressContainer: {
     flexDirection: 'row',
@@ -429,15 +435,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   progressDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: '#D1D5DB',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: '#CBD5E1',
     borderWidth: 2,
     borderColor: '#FFFFFF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.08,
     shadowRadius: 2,
     elevation: 2,
   },
@@ -449,13 +455,13 @@ const styles = StyleSheet.create({
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
-    shadowRadius: 4,
+    shadowRadius: 6,
     elevation: 4,
   },
   progressLine: {
     width: 40,
     height: 3,
-    backgroundColor: '#D1D5DB',
+    backgroundColor: '#CBD5E1',
     borderRadius: 2,
   },
   progressLineActive: {
@@ -463,162 +469,173 @@ const styles = StyleSheet.create({
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
-    shadowRadius: 2,
+    shadowRadius: 3,
   },
   stepContainer: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 28,
+    borderRadius: 24,
+    padding: 24,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 16,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 20,
+    elevation: 8,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#E8ECF0',
+    overflow: 'hidden',
   },
   stepTitle: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: '800',
-    color: '#0891B2',
+    color: '#0E7490',
     textAlign: 'center',
     marginBottom: 12,
-    letterSpacing: 0.3,
+    letterSpacing: 0.2,
+    lineHeight: 32,
   },
   subtitle: {
     fontSize: 15,
-    color: '#6B7280',
+    color: '#64748B',
     textAlign: 'center',
     marginBottom: 28,
     fontWeight: '500',
     lineHeight: 22,
   },
   userTypeBadge: {
-    fontSize: 17,
-    color: '#0891B2',
+    fontSize: 16,
+    color: '#0E7490',
     textAlign: 'center',
     backgroundColor: '#E0F2FE',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 24,
+    borderRadius: 20,
     alignSelf: 'center',
     marginBottom: 24,
     fontWeight: '700',
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.12,
     shadowRadius: 8,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#B6E6F8',
+    borderColor: '#BAE6FD',
+    lineHeight: 24,
   },
   userTypeCard: {
-    backgroundColor: '#F9FAFB',
-    borderRadius: 18,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
     padding: 24,
     marginBottom: 16,
     alignItems: 'center',
-    borderWidth: 2.5,
-    borderColor: '#E5E7EB',
+    borderWidth: 2,
+    borderColor: '#E8ECF0',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    elevation: 3,
   },
   userTypeCardSelected: {
     backgroundColor: '#E0F2FE',
     borderColor: '#0891B2',
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
+    shadowOpacity: 0.25,
+    shadowRadius: 14,
     elevation: 6,
-    borderWidth: 3,
+    borderWidth: 2.5,
   },
   userTypeIcon: {
     fontSize: 48,
     marginBottom: 10,
+    lineHeight: 48,
   },
   userTypeTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#374151',
+    fontSize: 19,
+    fontWeight: '800',
+    color: '#111827',
     marginBottom: 8,
+    lineHeight: 26,
   },
   userTypeDescription: {
     fontSize: 14,
-    color: '#6b7280',
+    color: '#64748B',
     textAlign: 'center',
+    lineHeight: 20,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 16,
+    gap: 12,
   },
   halfInput: {
     width: '48%',
   },
   input: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 16,
     marginBottom: 16,
     fontSize: 16,
-    color: '#374151',
-    borderWidth: 1.5,
-    borderColor: '#E5E7EB',
+    color: '#111827',
+    borderWidth: 1,
+    borderColor: '#E8ECF0',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
     elevation: 2,
+    lineHeight: 22,
   },
   uploadButton: {
-    backgroundColor: '#F9FAFB',
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
     padding: 18,
     marginBottom: 16,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#D1D5DB',
+    borderColor: '#CBD5E1',
     borderStyle: 'dashed',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
   },
   uploadButtonText: {
     fontSize: 16,
-    color: '#6b7280',
+    color: '#64748B',
+    fontWeight: '600',
+    lineHeight: 22,
   },
   questionText: {
     textAlign: 'right',
     fontSize: 16,
-    color: '#0891b2',
-    marginBottom: 15,
-    marginTop: 10,
+    color: '#0E7490',
+    marginBottom: 16,
+    marginTop: 12,
     fontWeight: '600',
+    lineHeight: 24,
   },
   radioContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
-    gap: 20,
+    gap: 16,
   },
   radioButton: {
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#FFFFFF',
     paddingVertical: 14,
     paddingHorizontal: 44,
-    borderRadius: 12,
-    borderWidth: 2.5,
-    borderColor: '#E5E7EB',
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: '#E8ECF0',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
   },
   radioButtonSelected: {
     backgroundColor: '#0891B2',
@@ -626,74 +643,77 @@ const styles = StyleSheet.create({
     shadowColor: '#0891B2',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 10,
     elevation: 6,
   },
   radioButtonText: {
     fontSize: 17,
-    color: '#374151',
+    color: '#111827',
     fontWeight: '700',
+    lineHeight: 24,
   },
   radioButtonTextSelected: {
     color: '#FFFFFF',
   },
   noteText: {
     textAlign: 'center',
-    fontSize: 12,
-    color: '#6b7280',
+    fontSize: 13,
+    color: '#64748B',
     marginBottom: 20,
     fontStyle: 'italic',
+    lineHeight: 20,
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
-    gap: 10,
+    marginTop: 24,
+    gap: 12,
   },
   nextButton: {
     backgroundColor: '#0891B2',
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 18,
     flex: 1,
     alignItems: 'center',
     shadowColor: '#0891B2',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
     shadowRadius: 12,
-    elevation: 8,
-    borderWidth: 0,
+    elevation: 6,
+    overflow: 'hidden',
   },
   backButton: {
-    backgroundColor: '#6B7280',
-    borderRadius: 14,
+    backgroundColor: '#64748B',
+    borderRadius: 16,
     padding: 18,
     flex: 1,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 6,
-    borderWidth: 0,
+    shadowRadius: 10,
+    elevation: 5,
+    overflow: 'hidden',
   },
   submitButton: {
     backgroundColor: '#059669',
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 18,
     flex: 1,
     alignItems: 'center',
     shadowColor: '#059669',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
     shadowRadius: 12,
-    elevation: 8,
-    borderWidth: 0,
+    elevation: 6,
+    overflow: 'hidden',
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 17,
     fontWeight: '700',
-    letterSpacing: 0.3,
+    letterSpacing: 0.2,
+    lineHeight: 24,
   },
 });
 

@@ -38,17 +38,17 @@ export default function LoginScreen({ onLogin, onSignUp }) {
       />
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin} activeOpacity={0.7}>
           <Text style={styles.loginButtonText}>تسجيل الدخول</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7}>
           <Text style={styles.forgotPassword}>هل نسيت كلمة المرور؟</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.signupContainer}>
-        <TouchableOpacity onPress={onSignUp}>
+        <TouchableOpacity onPress={onSignUp} activeOpacity={0.7}>
           <Text style={styles.signupText}>ليس لديك حساب؟ سجل الآن.</Text>
         </TouchableOpacity>
       </View>
